@@ -18,21 +18,12 @@
 // This bundle is sent to the browser for execution
 
 "use client";
-import { useState, useEffect } from "react";
-import { firestore } from "@/firebase";
-import { Box, Typography, Stack, Button } from "@mui/material";
-import {
-  collection,
-  query,
-  getDocs,
-  getDoc,
-  deleteDoc,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { useState } from "react";
+import { Box, Typography, Button } from "@mui/material";
 
 import AddItemModal from "../components/AddItemModal";
 import InventoryList from "../components/InventoryList";
+import { useInventory } from "../hooks/useInventory";
 
 // Defines a functional React component named 'Home'
 export default function Home() {
@@ -40,56 +31,11 @@ export default function Home() {
   // the brackets [] containing the state variable and function are used to destructure the array returned by the 'useState' hook
   // calling 'useState' returns an array with two elements
   // the destructuring assignment syntax unpacks the elements in the array into individual variables
-  const [inventory, setInventory] = useState([]); // inventory is initialized as an empty array, setInventory is function to update the state
+  // const [inventory, setInventory] = useState([]); // inventory is initialized as an empty array, setInventory is function to update the state
   const [open, setOpen] = useState(false); // open is initialized as false, setOpen is a function to update the state
+  const { inventory, addItem, removeItem } = useInventory();
   //  const [itemName, setItemName] = useState(""); // itemName is initialized as an empty string, setItemName is a function to update the state
-
-  console.log(inventory);
-
   // useState is a React hook for defining state variables
-
-  const updateInventory = async () => {
-    const snapshot = query(collection(firestore, "inventory"));
-    const docs = await getDocs(snapshot);
-    const inventoryList = [];
-    docs.forEach((doc) => {
-      inventoryList.push({ name: doc.id, ...doc.data() });
-    });
-
-    setInventory(inventoryList);
-  };
-
-  const addItem = async (item) => {
-    const docRef = doc(collection(firestore, "inventory"), item);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const { quantity } = docSnap.data();
-      await setDoc(docRef, { quantity: quantity + 1 });
-    } else {
-      await setDoc(docRef, { quantity: 1 });
-    }
-    await updateInventory();
-  };
-
-  const removeItem = async (item) => {
-    const docRef = doc(collection(firestore, "inventory"), item);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const { quantity } = docSnap.data();
-      if (quantity === 1) {
-        await deleteDoc(docRef);
-      } else {
-        await setDoc(docRef, { quantity: quantity - 1 });
-      }
-    }
-    await updateInventory();
-  };
-
-  useEffect(() => {
-    updateInventory();
-  }, []);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
