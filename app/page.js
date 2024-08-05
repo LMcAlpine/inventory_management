@@ -147,7 +147,7 @@ export default function Home() {
             </Button>
           </Stack>
         </Box>
-      </Modal>
+      </Modal>  
       <Button
         variant="contained"
         onClick={() => {
@@ -169,7 +169,7 @@ export default function Home() {
             Inventory Items
           </Typography>
         </Box>
-        <Stack width="800px" height="300px" spacing={2} overflow="auto">
+        <Stack width="800px" height="300px" spacing={2} overflow="auto" >
           {inventory.map(({ name, quantity }) => (
             <Box
               key={name}
@@ -178,7 +178,7 @@ export default function Home() {
               display="flex"
               alignItems="center"
               justifyContent="space-between"
-              bgColor="#f0f0f0"
+              bgcolor="#f0f0f0"
               padding={5}
             >
               <Typography variant="h3" color="#333" textAlign="center" flex={1}>
