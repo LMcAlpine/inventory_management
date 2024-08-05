@@ -32,6 +32,7 @@ import {
 } from "firebase/firestore";
 
 import AddItemModal from "../components/AddItemModal";
+import InventoryList from "../components/InventoryList";
 
 // Defines a functional React component named 'Home'
 export default function Home() {
@@ -116,6 +117,7 @@ export default function Home() {
       >
         Add New Item
       </Button>
+
       <Box border="1px solid #333">
         <Box
           width="800px"
@@ -129,7 +131,13 @@ export default function Home() {
             Inventory Items
           </Typography>
         </Box>
-        <Stack width="800px" height="300px" spacing={2} overflow="auto">
+
+        <InventoryList
+          inventory={inventory}
+          addItem={addItem}
+          removeItem={removeItem}
+        />
+        {/* <Stack width="800px" height="300px" spacing={2} overflow="auto">
           {inventory.map(({ name, quantity }) => (
             <Box
               key={name}
@@ -158,7 +166,7 @@ export default function Home() {
               </Stack>
             </Box>
           ))}
-        </Stack>
+        </Stack> */}
       </Box>
     </Box>
   );
