@@ -39,6 +39,10 @@ import {
   setDoc,
 } from "firebase/firestore";
 
+
+import AddItemModal from "../components/AddItemModal";
+
+
 // Defines a functional React component named 'Home'
 export default function Home() {
   // State variables
@@ -47,7 +51,7 @@ export default function Home() {
   // the destructuring assignment syntax unpacks the elements in the array into individual variables
   const [inventory, setInventory] = useState([]); // inventory is initialized as an empty array, setInventory is function to update the state
   const [open, setOpen] = useState(false); // open is initialized as false, setOpen is a function to update the state
-  const [itemName, setItemName] = useState(""); // itemName is initialized as an empty string, setItemName is a function to update the state
+//  const [itemName, setItemName] = useState(""); // itemName is initialized as an empty string, setItemName is a function to update the state
 
   console.log(inventory);
 
@@ -101,6 +105,7 @@ export default function Home() {
 
   // in material UI, box is the most basic starting block
   return (
+    /**this box is the whole page */
     <Box
       width="100vw"
       height="100vh"
@@ -109,45 +114,10 @@ export default function Home() {
       justifyContent="center"
       alignItems="center"
       gap={2}
+     /* bgcolor="#FF0000"*/
     >
-      <Modal open={open} onClose={handleClose}>
-        <Box
-          position="absolute"
-          top="50%"
-          left="50%"
-          width={400}
-          bgcolor="white"
-          border="2px solid #0000"
-          boxShadow={24}
-          p={4}
-          display="flex"
-          flexDirection="column"
-          gap={3}
-          sx={{ transform: "translate(-50%,-50%)" }}
-        >
-          <Typography variant="h6">Add Item</Typography>
-          <Stack width="100%" direction="row" spacing={2}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              value={itemName}
-              onChange={(e) => {
-                setItemName(e.target.value);
-              }}
-            />
-            <Button
-              variant="outlined"
-              onClick={() => {
-                addItem(itemName);
-                setItemName("");
-                handleClose();
-              }}
-            >
-              Add
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
+      <AddItemModal open={open} onClose={handleClose} addItem={addItem} />
+     
       <Button
         variant="contained"
         onClick={() => {
