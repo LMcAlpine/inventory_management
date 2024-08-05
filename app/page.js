@@ -18,17 +18,9 @@
 // This bundle is sent to the browser for execution
 
 "use client";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { firestore } from "@/firebase";
-import {
-  Box,
-  Typography,
-  Modal,
-  Stack,
-  TextField,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Stack, Button } from "@mui/material";
 import {
   collection,
   query,
@@ -39,9 +31,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 
-
 import AddItemModal from "../components/AddItemModal";
-
 
 // Defines a functional React component named 'Home'
 export default function Home() {
@@ -51,7 +41,7 @@ export default function Home() {
   // the destructuring assignment syntax unpacks the elements in the array into individual variables
   const [inventory, setInventory] = useState([]); // inventory is initialized as an empty array, setInventory is function to update the state
   const [open, setOpen] = useState(false); // open is initialized as false, setOpen is a function to update the state
-//  const [itemName, setItemName] = useState(""); // itemName is initialized as an empty string, setItemName is a function to update the state
+  //  const [itemName, setItemName] = useState(""); // itemName is initialized as an empty string, setItemName is a function to update the state
 
   console.log(inventory);
 
@@ -114,10 +104,10 @@ export default function Home() {
       justifyContent="center"
       alignItems="center"
       gap={2}
-     /* bgcolor="#FF0000"*/
+      /* bgcolor="#FF0000"*/
     >
       <AddItemModal open={open} onClose={handleClose} addItem={addItem} />
-     
+
       <Button
         variant="contained"
         onClick={() => {
@@ -154,7 +144,7 @@ export default function Home() {
               <Typography variant="h3" color="#333" textAlign="center" flex={1}>
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Typography>
-              <Typography variant="h3" color="#333" textAlign="center"flex={1}>
+              <Typography variant="h3" color="#333" textAlign="center" flex={1}>
                 {quantity}
               </Typography>
               <Stack direction="row" spacing={2}>
